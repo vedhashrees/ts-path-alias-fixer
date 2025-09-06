@@ -1,0 +1,50 @@
+{
+  "name": "ts-path-alias-fixer",
+  "version": "1.0.0",
+  "description": "Fix relative path imports in TypeScript/javascript to use custom alias like @/src",
+  "main": "dist/index.js",
+  "bin": {
+    "fix-ts-imports": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts"
+  },
+  "keywords": [
+    "typescript",
+    "javascript",
+    "relative path",
+    "path",
+    "paths",
+    "relative path",
+    "custom path",
+    "custom alias",
+    "alias",
+    "import",
+    "fixer",
+    "detect",
+    "fix",
+    "@/"
+  ],
+  "files": [
+    "dist"
+  ],
+  "author": "Vedhashree Sampath",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vedhashrees/ts-path-alias-fixer.git"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "fast-glob": "^3.3.1",
+    "ts-morph": "^20.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
