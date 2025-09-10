@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2025-09-10
+
+### Added
+
+- Added `--dry-run` CLI option to preview file modifications without making any changes.
+- Logs all files that **would** be updated, enabling safer testing of the tool.
+- Updated CLI usage examples and README to reflect new option.
+
+---
+
 ## [1.0.0] - 2025-09-06
 
 ### Added
@@ -18,4 +28,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Version Links -->
 
+[1.1.0]: https://github.com/vedhashrees/ts-path-alias-fixer/releases/tag/v1.1.0
 [1.0.0]: https://github.com/vedhashrees/ts-path-alias-fixer/releases/tag/v1.0.0

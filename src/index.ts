@@ -7,15 +7,19 @@ import { Project } from "ts-morph";
 import fg from "fast-glob";
 import path from "path";
 
+interface FixImportsOptions {
+  projectPath?: string;
+  alias?: string;
+  baseDir?: string;
+  dryRun?: boolean;
+}
+
 export async function fixImports({
   projectPath = process.cwd(),
   alias = "@",
   baseDir = "src",
-}: {
-  projectPath?: string;
-  alias?: string;
-  baseDir?: string;
-} = {}) {
+  dryRun = false,
+}: FixImportsOptions = {}) {
   const aliasWithSlash = alias.endsWith("/") ? alias : alias + "/";
   const files = await fg(["**/*.{ts,tsx,js,jsx,mjs,cjs}"], {
     cwd: projectPath,
@@ -63,9 +67,20 @@ export async function fixImports({
 
     if (wasModified) {
       modifiedFiles.push(file);
-      sourceFile.saveSync();
+      if (!dryRun) {
+        sourceFile.saveSync();
+      }
     }
   });
 
-  console.log(`✅ Imports fixed in ${modifiedFiles.length} file(s).`);
+  if (dryRun) {
+    console.log(
+      `🔍 Dry run: ${modifiedFiles.length} file(s) would be modified.`
+    );
+    modifiedFiles.forEach((file) => {
+      console.log(" - " + path.relative(projectPath, file));
+    });
+  } else {
+    console.log(`✅ Imports fixed in ${modifiedFiles.length} file(s).`);
+  }
 }

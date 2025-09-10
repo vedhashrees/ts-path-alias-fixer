@@ -1,6 +1,6 @@
 {
   "name": "ts-path-alias-fixer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Fix relative path imports in TypeScript/javascript to use custom alias like @/src",
   "main": "dist/index.js",
   "bin": {

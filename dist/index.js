@@ -11,7 +11,7 @@ exports.fixImports = fixImports;
 const ts_morph_1 = require("ts-morph");
 const fast_glob_1 = __importDefault(require("fast-glob"));
 const path_1 = __importDefault(require("path"));
-async function fixImports({ projectPath = process.cwd(), alias = "@", baseDir = "src", } = {}) {
+async function fixImports({ projectPath = process.cwd(), alias = "@", baseDir = "src", dryRun = false, } = {}) {
     const aliasWithSlash = alias.endsWith("/") ? alias : alias + "/";
     const files = await (0, fast_glob_1.default)(["**/*.{ts,tsx,js,jsx,mjs,cjs}"], {
         cwd: projectPath,
@@ -51,8 +51,18 @@ async function fixImports({ projectPath = process.cwd(), alias = "@", baseDir = 
         });
         if (wasModified) {
             modifiedFiles.push(file);
-            sourceFile.saveSync();
+            if (!dryRun) {
+                sourceFile.saveSync();
+            }
         }
     });
-    console.log(`✅ Imports fixed in ${modifiedFiles.length} file(s).`);
+    if (dryRun) {
+        console.log(`🔍 Dry run: ${modifiedFiles.length} file(s) would be modified.`);
+        modifiedFiles.forEach((file) => {
+            console.log(" - " + path_1.default.relative(projectPath, file));
+        });
+    }
+    else {
+        console.log(`✅ Imports fixed in ${modifiedFiles.length} file(s).`);
+    }
 }

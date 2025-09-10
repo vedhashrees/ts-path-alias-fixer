@@ -12,7 +12,8 @@ commander_1.program
     .description("Fix relative path imports to use custom alias like @/")
     .option("-d, --dir <path>", "Project root directory", process.cwd())
     .option("-a, --alias <alias>", "Alias (e.g. @)", "@")
-    .option("-b, --base <base>", "Base folder to replace (e.g. src)", "src");
+    .option("-b, --base <base>", "Base folder to replace (e.g. src)", "src")
+    .option("--dry-run", "Show which files would be modified without saving", false);
 commander_1.program.parse();
 const options = commander_1.program.opts();
 async function main() {
@@ -21,6 +22,7 @@ async function main() {
             projectPath: options.dir,
             alias: options.alias,
             baseDir: options.base,
+            dryRun: options.dryRun,
         });
     }
     catch (err) {
