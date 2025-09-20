@@ -61,7 +61,7 @@ fix-ts-imports
 | -b, --base  |     Base folder inside the project to replace     |          src           |
 | --dry-run   | Show which files would be modified without saving |         false          |
 
-## Example Usage:
+## Example Usage 1:
 
 In your project, if there are files which has relative path imports which needs to be modified to use custom path alias as below
 
@@ -125,3 +125,79 @@ Once you run the cli command as above, you should see some output console logs w
 ```bash
 ✅ Imports fixed in 3 file(s).
 ```
+
+## Example Usage 2:
+
+In your project, e.g `tsconfig.json` file config is as below
+
+Example:
+```bash
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/lib/apiClient/components/*"],
+      "@services/*": ["src/lib/apiClient/services/*"],
+      "@utils/*": ["src/utils/*"]
+    },
+  }
+}
+```
+
+Want to modify all project files with all relative path imports related to services like `../../src/lib/apiClient/services/service-1` in your project directory to a custom directory alias path like `@services/`
+
+Let's say it should convert:
+
+```bash
+import { ApiService } from '../../../../services/ApiService';
+```
+
+To:
+
+```bash
+import { ApiService } from '@services/ApiService';
+```
+
+## Run to modify files:
+
+If you are happy with the `--dry-run` output and want to proceed with the file changes in your project, run this tool as below
+
+```bash
+npx fix-ts-imports --dir ./ --alias @services --base src/lib/apiClient/services
+```
+
+## Example Output
+
+Once you run the cli command as above, you should see some output console logs which will indicate how many files have been modified with custom path alias imports in our project
+
+```bash
+✅ Imports fixed in 4 file(s).
+```
+
+## Example Usage 3:
+Want to modify again now, with all project files with all relative path imports related to components like `../../src/lib/apiClient/components/component-1` in your project directory to a custom directory alias path like `@components/`
+
+Let's say it should convert:
+
+```bash
+import { Button} from '../../../../components/buttonComponent';
+```
+
+To:
+
+```bash
+import { Button} from '@components/buttonComponent';
+```
+
+## Run to modify files:
+
+Run the below from your command line
+
+```bash
+npx fix-ts-imports --dir ./ --alias @components --base src/lib/apiClient/components
+```
+
+
+Use this tool like as many times as you like and in minutes enjoy a much cleaner and readable code.
+
